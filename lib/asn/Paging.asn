@@ -1,0 +1,40 @@
+-- ASN1START
+-- TAG-PAGING-START
+
+PagingModule DEFINITIONS AUTOMATIC TAGS ::= BEGIN
+
+Paging ::= SEQUENCE {
+pagingRecordList PagingRecordList OPTIONAL, -- Need N
+lateNonCriticalExtension OCTET STRING OPTIONAL,
+nonCriticalExtension SEQUENCE{} OPTIONAL
+}
+PagingRecordList ::= SEQUENCE (SIZE(1..maxNrofPageRec)) OF PagingRecord
+PagingRecord ::= SEQUENCE {
+ue-Identity PagingUE-Identity,
+accessType ENUMERATED {non3GPP} OPTIONAL, -- Need N
+...
+}
+PagingUE-Identity ::= CHOICE {
+ng-5G-S-TMSI NG-5G-S-TMSI,
+fullI-RNTI I-RNTI-Value,
+...
+}
+
+-- ASN1START
+-- TAG-NG-5G-S-TMSI-START
+NG-5G-S-TMSI ::= BIT STRING (SIZE (48))
+-- TAG-NG-5G-S-TMSI-STOP
+-- ASN1STOP
+
+-- ASN1START
+-- TAG-I-RNTI-VALUE-START
+I-RNTI-Value ::= BIT STRING (SIZE(40))
+-- TAG-I-RNTI-VALUE-STOP
+-- ASN1STOP
+
+maxNrofPageRec INTEGER ::= 32 -- Maximum number of page records
+
+-- TAG-PAGING-STOP
+-- ASN1STOP
+
+END
